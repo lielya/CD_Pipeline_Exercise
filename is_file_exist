@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -e /tmp/zip_job.py ]
+then
+    echo "file zip_job.py exists :)"
+else
+    echo "file zip_job.py is not exist :("
+fi
