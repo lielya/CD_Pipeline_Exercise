@@ -3,8 +3,8 @@ version: '3.3'
 services:
   jenkins:
     build:
-      context: /home/c442184/code/CD_Pipeline_Exercise 
-      dockerfile: Dockerfile-controller        
+      context: .
+      dockerfile: Dockerfile-controller
     # image: jenkins/jenkins:lts
     privileged: true
     user: root
@@ -13,7 +13,7 @@ services:
       - 50000:50000
     container_name: jenkins
     volumes:
-      - /home/c442184/code/jenkins/jenkins_configuration:/var/jenkins_home
+      - /home/liel/code/jenkins/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 
   agent:
@@ -21,13 +21,12 @@ services:
           #  - jenkins
         #image: jenkins/ssh-agent:jdk11
     build:
-      context: /home/c442184/code/CD_Pipeline_Exercise
+      context: .
       dockerfile: Dockerfile-old-agent
     privileged: true
     user: root
     container_name: agent
     expose:
       - 22
-    environment: 
-      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSiXAf6KII+uHTS5ldbO7/4kWkMkH0oXPsisP6L+k51ovVdA1K6umMOICGuA+OXYLJnAd4Jv9M9jrer3TEwMGsWQKOg8GWUOvCJpifh5YzCcmn6EuTa6hWJ7DD7smwtIy+uKTcZR7e0rIX61gJchAMHk4cxT93jJwQbA69UU2bCM8WzK/7pL+Yqi9FMQyUUKwAXq9QHoGa7T8JyrU9Jc4urij/3/o/gC5QDlkuolu2J6o93bbzeVrpKbH6Khaakdb+efU07GyThepUkDk3hkq8yDzFNNsXSipIhllZkl4g5JtOPAvvGoLldt7KiT+9fwdt868xkoC3tABC4oIUhS1F c442184@Ubuntu-NP-28
- 
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCRXjOyrPB5VllFN0mOnsKL6m7g2ynCgklKS/Y1ddphqzMLdyp8zrNIfHHUSnk2/nJaBJ8rLvxzohqyruTjL+jFOou1+FfNREyN9J1pMn70AN8uFF0VkHxARvIIbaCUqCR+MJXjKVpdcg8shnHScx+/9CXBVgv/kuQH/Rq/n2s/6JXQir34RG5V9K9gS2aONKFvaUVXodAz3lJAkE7p3viZ8S9xuK8xA7rGl16mklkUvHphXmlqvAj3aL49JYBrvxvyoNuES4REc7eOZbd5b2R1RVc+hTrZGLvCdQs83xB6L4TJ7XFL8mswLJEsbucwrChwcqaqV5d1jNfyBBxpMVfOqRDI9mxINiIwTA6s1V5sTYg/I2HMPh+h8FZ9JQz6uqejiZZJEdog5cqvgH2j1k7hk5m1HQv32CED+W0nIbynbyKS37+bMTp2uJ7MRQKNHfVfGIm9QDamgK2IoA7IVsJG63B7o76Q9q+Us5v+aRRniW2sokAGHr/TSWCc7iDotZ0= liel@liel-virtual-machine

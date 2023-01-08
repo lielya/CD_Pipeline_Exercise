@@ -1,15 +1,31 @@
 pipeline {
     agent {
       node{
-        label 'zip-job-docker' 
-	privileged true 
+        label 'zip-job-docker'
+	privileged true
       }
     }
     stages{
         stage('Build') {
             steps {
-                sh '/tmp/is_file_exist'
+                sh '/tmp/zip_job.py'
             }
+	stage('Upload') {
+	    when {
+	        success
+            }
+	    steps {
+ 	    }
+	    }
+	stage('Report') {
+            steps {
+              emailext(attachLog: true, body: 'Job status mail body', subject: 'Job status mail subject', to: 'lielyaakobov123@gmail.com')
+            }
+	}
+	stage('Cleanup') {
+
+	}
+
         }
-    }    
+    }
 }
