@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages{
+        stage('Build') {
+            steps {
+                sh 'python3 /tmp/zip_job.py'
+            }
+        }
+    }    
+}
