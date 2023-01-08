@@ -1,0 +1,33 @@
+# docker-compose.yaml
+version: '3.3'
+services:
+  jenkins:
+    build:
+      context: /home/c442184/code/CD_Pipeline_Exercise 
+      dockerfile: Dockerfile-controller        
+    # image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - /home/c442184/code/jenkins/jenkins_configuration:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  agent:
+          #depends_on:
+          #  - jenkins
+        #image: jenkins/ssh-agent:jdk11
+    build:
+      context: /home/c442184/code/CD_Pipeline_Exercise
+      dockerfile: Dockerfile-old-agent
+    privileged: true
+    user: root
+    container_name: agent
+    expose:
+      - 22
+    environment: 
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSiXAf6KII+uHTS5ldbO7/4kWkMkH0oXPsisP6L+k51ovVdA1K6umMOICGuA+OXYLJnAd4Jv9M9jrer3TEwMGsWQKOg8GWUOvCJpifh5YzCcmn6EuTa6hWJ7DD7smwtIy+uKTcZR7e0rIX61gJchAMHk4cxT93jJwQbA69UU2bCM8WzK/7pL+Yqi9FMQyUUKwAXq9QHoGa7T8JyrU9Jc4urij/3/o/gC5QDlkuolu2J6o93bbzeVrpKbH6Khaakdb+efU07GyThepUkDk3hkq8yDzFNNsXSipIhllZkl4g5JtOPAvvGoLldt7KiT+9fwdt868xkoC3tABC4oIUhS1F c442184@Ubuntu-NP-28
+ 

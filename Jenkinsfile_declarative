@@ -3,8 +3,7 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'chmod 777 /tmp/zip_job.py'
-		sh 'python3 /tmp/is_file_exist.py'
+		sh /tmp/is_file_exist'
             }
         }
     }    

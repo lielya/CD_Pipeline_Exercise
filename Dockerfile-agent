@@ -1,0 +1,10 @@
+FROM img:1.0.0
+USER root
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt install -y default-jre
+RUN apt install -y default-jdk
+RUN apt install curl -y
+RUN curl -sO http://localhost:8080/jnlpJars/agent.jar
+RUN mkdir /home/jenkins
+RUN java -jar agent.jar -jnlpUrl http://localhost:8080/computer/My%20New%20Ubuntu%2022%2E04%20Node%20with%20Java%20and%20Docker%20installed/jenkins-agent.jnlp -secret my_secret -workDir "/home/jenkins"
