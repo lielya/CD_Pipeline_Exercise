@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-		sh /tmp/is_file_exist'
+		sh /tmp/is_file_exist
             }
         }
     }    
