@@ -1,0 +1,15 @@
+1. Open new project in github.
+2. Docker installation.
+3. Create the requested Dockerfile while getting inside the conainer to confirm that is makes exactly what i want.
+4. Pycharm installation.
+5. Create zip_job.py script and making sure it runs well.
+6. Create jenkin's setup using docker-compose (install docker-compose first).
+7. COnfigure an agent.
+8. Understand the diff between declarative jenkins pipeline and scripted jenkins pipeine.
+9. Dounload artifactory using docker.
+10. Craete a declarative pipeline. Making sure it runs well. During this part i learnt how to to use jenkins plugins.
+11. Before adding the next stage i made sure the previos one finished successfully.
+12. Craete a scripded pipeline.
+13. Before adding the next stage i made sure the previos one finished successfully.
+14. Take Artifactory and Jenkins jobs screenshots.
+15. Send it back :)
