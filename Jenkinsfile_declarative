@@ -2,7 +2,7 @@ pipeline {
     agent {
       node{
         label 'zip-job-docker'
-	privileged true
+	      privileged true
       }
     }
     stages{
@@ -10,22 +10,30 @@ pipeline {
             steps {
                 sh '/tmp/zip_job.py'
             }
-	stage('Upload') {
-	    when {
-	        success
+        }
+	      stage('Upload') {
+	          when {
+	              success
             }
-	    steps {
- 	    }
-	    }
-	stage('Report') {
+	          steps {
+                def server = Artifactory.server 'http://localhost:8082/'
+                def rtDeployer = Artifactory.newDeployer(server: server)
+                rtDeployer.deployable.pattern = '/tmp/*.zip'
+                rtDeployer.rtDeployer.repository.repokey = 'binary-storage/1.2.0'
+                rtDeployer.rtDeployer.deployIvy = true
+                rtDeployer.deploy
+ 	          }
+	      }
+	      stage('Report') {
             steps {
-              emailext(attachLog: true, body: 'Job status mail body', subject: 'Job status mail subject', to: 'lielyaakobov123@gmail.com')
+                def buildstatus = currentBuild.currentResault
+                emailext(attachLog: true, body: 'Job status mail body. ', subject: 'Job status mail subject is ${buildstatus}', to: 'lielyaakobov123@gmail.com')
             }
-	}
-	stage('Cleanup') {
-
-	}
-
+	      }
+	      stage('Cleanup') {
+            steps {
+                deleteDir()
+            }
         }
     }
 }
