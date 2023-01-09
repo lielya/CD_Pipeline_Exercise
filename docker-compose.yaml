@@ -3,7 +3,7 @@ version: '3.3'
 services:
   jenkins:
     build:
-      context: /home/liel/CD_Pipeline_Exercise
+      context: /home/c442184/code/CD_Pipeline_Exercise
       dockerfile: Dockerfile-controller
     # image: jenkins/jenkins:lts
     privileged: true
@@ -13,20 +13,22 @@ services:
       - 50000:50000
     container_name: jenkins
     volumes:
-      - /home/liel/code/jenkins/jenkins_configuration:/var/jenkins_home
+      - /home/c442184/code/jenkins/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 
   agent:
           #depends_on:
           #  - jenkins
+    image: agent_image
     # image: jenkins/ssh-agent:jdk11
-    build:
-      context: /home/liel/CD_Pipeline_Exercise
-      dockerfile: Dockerfile-old-agent
+    # build:
+    #   context: /home/c442184/code/CD_Pipeline_Exercise
+    #   dockerfile: Dockerfile-old-agent
     privileged: true
     user: root
     container_name: agent
     expose:
       - 22
     environment:
-      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCU3EoP20NwUULJO6YoV3HeWlA6NWlbUCyJ4G+dOfj7HRCnj/3jCXzKIftLQsxq+ZzFMvcUwo87u3DYoEQ6EE2orIUcER+FygTfiGLG2bqndsGojohGlqFY95LDStWNkgBUg6FRsYHnsnGPk+/gz/4hE0v8MCe3mvRl1ZI8VeSdfOHFxKDWgBkQG+/CCzVKek4XWbegt//rcVrY9JcpAZwkefdEsTaW1roE13OOU/SC/QoQRWc3mofe4ny0Hz4GUoQA91e10RG7OAIDKpxM0AvghUT8TuPJUcDPWSMIxMUuo/+R9vGgV+4sZNAM0bgmI3cwg1H7TEYSuLzxId5YTx71EEKDW3WoEy3dQOGVj8IuE9PLIRHjdkSGEcpWRWeZuUb4uzgeOEdRJbSsDfEhCPaFYjBItPhUe0/RF7KWhvsni9zv+FKB1OAF9eGmd8EuBplbi+I2ZhXCmLCsR44Wnb//VtxbNfkQZV9nva+ImAgzxfHk2Gtsik3NzDlynBbcvHk= root@liel-virtual-machine
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhiXCwg2WZZxvuwRhYH+Gz7UJBaed1A8/sSnf232xDFWbK4X5VQeJUQO0yFPpdExqEk/hLNnlfpu+TNqZHAtN+dkr9epS5yJj13m3K6bIeqS3xFzWvqXDzHWKT694aDeGi+lfncTjc1JfeCf6x3lzqebEP2YD57Y2O7cvqZYkm9VByjVCJWntTElk8I04WvIEVKxJKTqgAwrG27JtFAuahOiQufZSmYDip6iIkwLEK4Pr4arYuU2HbefLwfity1PjhaKdtUirKuLVlYb3oXFn5Vbdz6c6+ryKlwheJ5YYXUsRnrg0OPxdaEwYNBgloiwsapgB0tg+feM82jxcg2bnn c442184@Ubuntu-NP-12KEY=
+
