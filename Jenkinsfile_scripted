@@ -1,0 +1,26 @@
+node {
+    label 'zip-job-docker'
+    privileged {
+        stage('Build'){
+            sh '/tmp/zip_job.py'
+        }
+        if (currentBuild.currentResult == 'SUCCESS') {
+            stage('Publish'){
+                def server = Artifactory.server 'http://localhost:8082/'
+                def rtDeployer = Artifactory.newDeployer(server: server)
+                rtDeployer.deployable.pattern = '/tmp/*.zip'
+                rtDeployer.rtDeployer.repository.repokey = 'binary-storage/1.2.0'
+                rtDeployer.rtDeployer.deployIvy = true
+                rtDeployer.deploy
+            }
+        }  
+        stage('Report'){
+                def buildstatus = currentBuild.currentResault
+                emailext(attachLog: true, body: 'Job status mail body. ', subject: 'Job status mail subject is ${buildstatus}', to: 'lielyaakobov123@gmail.com')
+
+        }
+        stage('Cleanup'){
+            deleteDir()
+        }
+    }   
+}
