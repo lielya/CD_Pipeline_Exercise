@@ -7,9 +7,10 @@
 7. Configure an agent.
 8. Understand the diff between declarative jenkins pipeline and scripted jenkins pipeine.
 9. Run artifactory using docker.
-10. Craete a declarative pipeline. Making sure it runs well. During this part i learnt how to to use jenkins plugins.
-11. Before adding the next stage i made sure the previos one finished successfully.
+10. In this part my machin crached, i could not run the artifactory while jenkins is up. So i tryed to create the jenkins files using the artifactory's configuration before the crushing.
+11. Craete a declarative pipeline. During this part i learnt how to to use jenkins plugins.
 12. Create a scripded pipeline.
-13. Before adding the next stage i made sure the previous one finished successfully
-14. Take Artifactory and Jenkins jobs screenshots.
-15. Send it back :)
+13. Running all and send it. 
+
+* Unfortunetly i didn't have the convinient environment to work on so it was hard to check all the pipeline entirely :( 
+  

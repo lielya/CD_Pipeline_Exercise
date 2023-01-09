@@ -1,18 +1,5 @@
-pipeline {    
-    agent {
-        label 'zip-job-docker'
-    }
-    stages{
-        stage('Build') {
-            steps {
-                sh 'python3 /tmp/zip_job.py'
-            }
-        }
-        stage('Publish') {
-            when {
-                expression {currentBuild.currentResult == 'SUCCESS'}
-            }
-            steps {
+f (currentBuild.currentResult == 'SUCCESS') {
+            stage('Publish'){
                 def server = Artifactory.server 'http://localhost:8082/'
                 def rtDeployer = Artifactory.newDeployer(server: server)
                 rtDeployer.deployable.pattern = '/tmp/*.zip'
@@ -20,17 +7,12 @@ pipeline {
                 rtDeployer.rtDeployer.deployIvy = true
                 rtDeployer.deploy
             }
-        }
-        stage('Report') {
-            steps {
+        }  
+        stage('Report'){
                 def buildstatus = currentBuild.currentResault
                 emailext(attachLog: true, body: 'Job status mail body. ', subject: 'Job status mail subject is ${buildstatus}', to: 'lielyaakobov123@gmail.com')
-            }
+
         }
-        stage('Cleanup') {
-            steps {
-                deleteDir()
-            }
+        stage('Cleanup'){
+            deleteDir()
         }
-    }
-}
