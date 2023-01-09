@@ -2,7 +2,7 @@ pipeline {
     agent {
       node{
         label 'zip-job-docker'
-	      privileged true
+	    privileged true
       }
     }
     stages{
